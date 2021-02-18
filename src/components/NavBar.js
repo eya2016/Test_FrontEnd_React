@@ -2,7 +2,9 @@ import React from 'react'
 import {FaListAlt, FaCheckSquare, FaPlusSquare, FaTrash} from 'react-icons/fa'
 import { NavLink } from 'react-router-dom'
 
-const NavBar = ({onDeleteCompleted}) => (
+const NavBar = ({logged}) => {
+
+   return(
     <>
     
 		<nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -20,7 +22,7 @@ const NavBar = ({onDeleteCompleted}) => (
                             <NavLink to="/add-task" className="nav-link" exact={true}>Tache</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink to="/Login" className="nav-link" exact={true}>Connexion</NavLink>
+                            <NavLink to="/login" className="nav-link" exact={true}>{ (logged) ?  `Deconnexion` : `Connexion`}</NavLink>
                         </li>
                     </ul>
                 </div>
@@ -29,6 +31,7 @@ const NavBar = ({onDeleteCompleted}) => (
         <footer className="d-flex justify-content-between bg-secondary p-3" id="mainFooter" />
           
     </>
-)
+    )
+}
 
 export default NavBar

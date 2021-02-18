@@ -1,113 +1,60 @@
-import React, { useState } from "react";
+import React, { useState, useEffect  } from "react";
+import { useHistory } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-// const Login = () =>  {
-export default class Login extends React.Component {
+const Login = ({logged}) => {
 
-//  handleSignIn(event) {
+  //utilisation des hooks pour la aj des variables d'accès
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [user, setUser] = useState();
+  let history = useHistory();
+
+  // Traiter l'évènement login
+  const handleSubmit = async e => {
+    e.preventDefault();
+    // recuper les donner (username and password)
+    let userInput = { username, password };
+
+    // set the state of the user
+    setUser(userInput);
+
+    // store the user in localStorage
+    localStorage.setItem("user", JSON.stringify(user));
     
-//     event.preventDefault();
-//     let username = this.refs.username.value;
-//     let password = this.refs.password.value;
-//     this.props.onSignIn(username, password);
-//     console.log(" ===> eail :",username,"  ===> password :", password);
-//     // this.props.onSignIn(username, password);
-//     // const emailPattern = new RegExp(/test@test.com/);
-//     // if(!emailPattern.test(email)){
-//     //         test1=false;
-//     // }
-//     // const passwordPattern = new RegExp(/test/);
-//     // if(!passwordPattern.test(password)){
-//     //         test2=false;
-//     // }
-    
-//     // this.props.onSignIn(username, password)
-//     // return email.length > 0 && password.length > 0 && test1 && test2;
-//   }
+    if(username=="test@test.com" && password=="test"){
+      logged= true;
+      history.push("/"); 
+    }
+  };
 
-//   render() {
-//     return (
-//       <div className="Login">
-//         <Form onSubmit={this.handleSignIn.bind(this)}>
-//           <h3>Sign in</h3>
-//           <Form.Group size="lg" controlId="email"> 
-//             <Form.Label>Email</Form.Label>
-//             <Form.Control
-//                 autoFocus
-//                 type="email"
-//                 ref="username" placeholder="enter you email"
-//                 />
-//               </Form.Group>
-//               <Form.Group size="lg" controlId="email"> 
-//             <Form.Label>Email</Form.Label>
-//             <Form.Control
-//                 autoFocus
-//                 type="password"
-//                 ref="password" placeholder="enter your password"
-//                 />
-//               </Form.Group>
-//             {/* <input type="submit" value="Login" /> */}
-//             <Button block size="lg" type="submit" >
-//                 Login
-//             </Button>
-//         </Form>
-//       </div>
-//     )
-//   }
 
-handleSignIn(e) {
-  e.preventDefault()
-  let username = this.refs.username.value
-  let password = this.refs.password.value
-  this.props.onSignIn(username, password)
-}
-
-render() {
   return (
-    <form onSubmit={this.handleSignIn.bind(this)}>
-      <h3>Sign in</h3>
-      <input type="text" ref="username" placeholder="enter you username" />
-      <input type="password" ref="password" placeholder="enter password" />
-      <input type="submit" value="Login" />
-    </form>
+    <div className="Login">
+      <Form onSubmit={handleSubmit}>
+          <Form.Group size="lg" controlId="email">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              type="text"
+              value={username}
+              placeholder="enter a username"
+              onChange={({ target }) => setUsername(target.value)}
+            />
+          </Form.Group>
+          <Form.Group size="lg" controlId="password">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+             type="password"
+             value={password}
+             placeholder="enter a password"
+             onChange={({ target }) => setPassword(target.value)}
+            />
+          </Form.Group>
+          <Button type="submit">Login</Button>
+      </Form>
+    </div>
   )
 }
 
-
-}
-// render() {
-//   return (
-//     <div className="Login">
-//       {/* <Form onSubmit={handleSubmit}> */}
-//       <form onSubmit= {this.handleSignIn.bind(this)} >
-//         <Form.Group size="lg" controlId="email"> 
-//           <Form.Label>Email</Form.Label>
-//           <Form.Control
-//             autoFocus
-//             type="email"
-//             ref="username" placeholder="enter you email"
-//             // value={email}
-//             // onChange={(e) => setEmail(e.target.value)}
-//           />
-//         </Form.Group>
-//         <Form.Group size="lg" controlId="password">
-//           <Form.Label>Password</Form.Label>
-//           <Form.Control
-//             type="password"
-//             ref="password" placeholder="enter password"
-//             // value={password}
-//             // onChange={(e) => setPassword(e.target.value)}
-//           />
-//         </Form.Group>
-//         <input type="submit" value="Login" />
-//         {/* <Button block size="lg" type="submit" disabled={!validateForm()}>
-//           Login
-//         </Button> */}
-//         {/* <span>  {errorMessage } </span> */}
-//       </form>
-//     </div>
-//   )}
-// }
-
-//export default Login;
+export default Login;

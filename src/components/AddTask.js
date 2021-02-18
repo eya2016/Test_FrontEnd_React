@@ -2,9 +2,7 @@ import React from 'react'
 import uuid from 'react-native-uuid'
 
 
-
 class AddTask extends React.Component{
-
 
     handleSubmit = (e) => { 
         e.preventDefault();
